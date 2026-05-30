@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ចុះឈ្មោះសមាជិក - មហាសិរី (MSN)</title>
+    <style>
+        body { font-family: 'Khmer OS Battambang', sans-serif; background: #f4f4f4; padding: 20px; text-align: center; }
+        .form-container { background: white; padding: 30px; border-radius: 10px; max-width: 400px; margin: auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        input, select { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; }
+        .btn { background: #003366; color: white; border: none; padding: 15px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .back-link { margin-top: 15px; display: block; color: #003366; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>ចុះឈ្មោះសមាជិកថ្មី</h2>
+        <input type="text" id="name" placeholder="ឈ្មោះពេញ">
+        <select id="province">
+            <option value="PP">ភ្នំពេញ</option>
+            <option value="SR">សៀមរាប</option>
+            <option value="BTB">បាត់ដំបង</option>
+            </select>
+        <button class="btn" onclick="sendToTelegram()">បញ្ជូនទិន្នន័យ</button>
+        <a href="index.html" class="back-link">ត្រឡប់ទៅទំព័រដើមវិញ</a>
+    </div>
+
+    <script>
+        function sendToTelegram() {
+            const name = document.getElementById('name').value;
+            const province = document.getElementById('province').value;
+            const memberID = "MSN26-" + province + "-" + Math.floor(1000 + Math.random() * 9000);
+            
+            // សូមប្តូរ BOT_TOKEN និង CHAT_ID របស់អ្នកនៅទីនេះ
+            const token = "YOUR_BOT_TOKEN"; 
+            const chat_id = "YOUR_CHAT_ID";
+            const message = `សមាជិកថ្មី!%0Aឈ្មោះ: ${name}%0Aកូដ: ${memberID}%0Aខេត្ត: ${province}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${message}`)
+            .then(() => alert("ចុះឈ្មោះជោគជ័យ! លេខកូដរបស់អ្នកគឺ: " + memberID));
+        }
+    </script>
+</body>
+</html>
